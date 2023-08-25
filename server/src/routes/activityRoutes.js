@@ -1,55 +1,25 @@
 const { Router } = require('express');
-const {Activity,Country} = require('../db')
-
+const { byActivities, postActivity } = require('../Controllers/ActivityController.js');
 const router = Router();
 
-router.get('/', async (req, res) => {
-    try {
-        const activitie = await Activity.findAll({
-            attributes: ['id', 'name', 'difficulty', 'duration', 'season'],
-            include: Country
-        })
-        res.status(200).send(activitie)
-    } catch (error) {
-        console.log(error)
-    } 
-}); 
-
-
 router.post('/', async (req, res) => {
+    const { name, difficulty, duration, season, countries} = req.body;
     try {
-        const { name, difficulty, duration, season, countries } = req.body;
-        const createAct = await Activity.create({           
-                name: name[0].toUpperCase() + name.substring(1),
-                difficulty: difficulty,
-                duration: duration,
-                season: season,
-        })
-        let actADb = await Country.findAll({
-                where:{name: countries}
-        })
-        createAct.addCountry(actADb)
-        res.status(200).send('Activity created');
-
+        let newActivity = await postActivity(name, difficulty, duration, season, countries)
+        res.status(200).send(newActivity)
     } catch (error) {
-        console.log(error);
-    }
-});
-
-router.delete('/:name', async (req, res) => {
-    try {
-        const {name} = req.params;
-        const act = await Activity.destroy({
-            where:{
-                name: name
-            }
-        })
-        res.send('Eliminated')
-    } catch (error) {
-        console.log(error)
+        console.log('Error postActivity en el llamado ' + error)
     }
 })
 
+router.get('/', async (req, res) => {
+    try {
+        let getActivities = await byActivities()
+        res.status(200).send(getActivities)
+    } catch (error) {
+        console.log('Error en activities en el llamado ' + error)
+    }
+});
 
 
-module.exports = router
+module.exports = router;

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllCountry } = require('../Controllers/CountryController');
+const { getCountries, getCountriesByName } = require('../Controllers/CountryController');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -10,11 +10,12 @@ router.get('/', async (req, res) =>{
     const {name} = req.query;
 
     if(!name){                                                                  
-        let countries = await getAllCountry();                                        
+        let countries = await getCountries();                                        
         return res.status(200).send(countries);
     }else{
         try{
-            const country = await getAllCountry();                                     
+            console.log("BUSCANDO CON NOMBRE ESPECIFICO...") 
+            const country = await getCountriesByName(name);                                     
             const nameCountry = country.filter(c => c.name.toLowerCase().startsWith(name.toLowerCase()));       
             nameCountry.length ?
             res.status(200).send(nameCountry) : res.status(404).send('Country name does not exist!');                                                   

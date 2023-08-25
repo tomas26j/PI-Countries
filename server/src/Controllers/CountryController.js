@@ -1,61 +1,71 @@
-const fs = require('fs');
-const path = require('path');
-const { Country, Activity } = require('../db.js');
+const axios = require('axios');
+const { Op } = require('sequelize');
+const { Country, Activity } = require('../db.js')
 
-const filePath = path.join(__dirname, '../api/db.json');
-
-  const getApiInfo = async () => {
-    try {
-      fs.readFile(filePath, 'utf-8', async (err, data) => {
-        if (err) {
-          console.error('Error al leer el archivo JSON:', err);
-          return;
-        }
-      
-        try {
-          const countries = JSON.parse(data);
-      
-          // Itera a través de los objetos del JSON y guardar en la base de datos
-          for (const country of countries) {
-            await Country.findOrCreate({
-              id: country.id,
-              name: country.name,
-              flags: country.flags,
-              continents: country.continents,
-              capital: country.capital,
-              subregion: country.subregion,
-              area: country.area,
-              population: country.population
-            });
-          }
-      
-          console.log('Datos guardados en la base de datos.');
-        } catch (parseError) {
-          console.error('Error al analizar el archivo JSON:', parseError);
-        }
-      });
-    } catch (error) {
-      console.error(error.message)
-    }
-  }
-
-  const getDbInfo = async () => {
-    await getApiInfo()
-    const aux = await Country.findAll({
-        include: {
-            model: Activity,
-            attributes: ['name', 'difficulty', 'duration', 'season'],
-            through: {
-                attributes: [],
-            }
-        }
+const getCountries = async () => {
+    let dbCountries = await Country.findAll({
+        include: [Activity]
     })
-    return aux
+    try {
+        if(dbCountries.length === 0) {
+            console.warn("NO HABIA DATOS EN LA DB, BUSCANDO EN LA API")
+            const { data } = await axios.get('https://restcountries.com/v3/all');
+            
+            const countries = data.map((country) => {
+                return {
+                    id: country.cca3,
+                    name: country.name.common,
+                    flags: country.flags[1],
+                    continents: country.continents[0],
+                    capital: country.capital ? country.capital[0] : 'Undefined capital city',
+                    subregion: country.subregion ? country.subregion : 'Undefinded Subregion',
+                    area: country.area,
+                    population: country.population
+                };
+            })
+        
+            countries.forEach((country) => {
+                Country.findOrCreate({
+                    where: { id: country.id },
+                    defaults: {
+                        id: country.id,
+                        name: country.name,
+                        flags: country.flags,
+                        continents: country.continents,
+                        capital: country.capital,
+                        subregion: country.subregion,
+                        area: country.area,
+                        population: country.population,
+                    }
+                })
+            });
+            dbCountries = await Country.findAll({
+                include: [Activity]
+            })
+        }else(console.log("Ya hay datos en la DB, devolviendo eso"))
+        return dbCountries
+    } catch(error){
+        console.log('Error getCountries en controller ' + error)
+    }
 }
 
-const getActivities = async () => {
-    const get = await Activity.findAll()
-    return get;
+const getCountriesByName = async (name) => {
+    try {
+        const byNameCountries = await Country.findAll({
+            where: {
+                name: {
+                    [Op.iLike] : `%${name}%`
+                }
+            },
+            include: [Activity]
+        })
+        return byNameCountries
+    } catch (error) {
+        console.log('error getCountriesByName en controller ' + error)
+    }
 }
 
-module.exports = { getDbInfo, getActivities };
+module.exports = {
+    getCountries,
+    getCountriesByName
+};
