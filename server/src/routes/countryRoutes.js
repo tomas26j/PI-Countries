@@ -24,24 +24,23 @@ router.get('/', async (req, res) =>{
          res.send(error)
         }; 
     };
+    return res.status(400).send("DATA NOT FOUND");
 });
 
 
 router.get('/:id', async  (req, res) =>{                                             
     let {id} = req.params;                                                              
     try{
-        let allId = await getAllCountry();                                                   
-        let countryId = allId.filter( c => c.id.toUpperCase().startsWith(id.toUpperCase()))
-        countryId ?
-        res.status(200).send(countryId)
-        : res.status(404).send('No existe Id del Pais')
+        console.log("BUSCANDO CON NOMBRE ESPECIFICO...") 
+        const country = await getCountriesByName(id);                                     
+        const nameCountry = country.filter(c => c.id.startsWith(id));       
+        nameCountry.length ?
+        res.status(200).send(nameCountry) : res.status(404).send('Country name does not exist!');                                                   
     }
     catch(error){
-        res.send(error)
-    }
-});
-
-
-
+     res.send(error)
+    };
+    return res.status(400).send("DATA NOT FOUND");
+})
 
 module.exports = router;

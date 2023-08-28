@@ -1,0 +1,110 @@
+.searchbar{
+    /* background-color: rgba(255, 255, 255, 0.395); */
+    
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    flex: center ;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    opacity: 0.7; 
+    justify-content: center;
+    
+  }
+
+  .input {
+    background-color:rgb(255, 255, 255);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0,0,0,0.5);
+    border-radius: 10px;
+    height: 25px;
+    /* margin-left: 20px; */
+    width: 25rem;
+    font-family: 'Changa', sans-serif;
+    font-size: 1.25rem;
+    padding-left: 10px;
+
+  }
+  .input::placeholder {
+    color: #002029;
+    padding-left: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .searchbar button {
+    background-color: #fff;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    box-sizing: border-box;
+    color: #002029;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    line-height: 29px;
+    padding: 0 10px 0 11px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    width: 100px;
+    cursor: pointer;
+    outline: none;
+    margin-left: 5px;
+    
+  }
+
+  .searchbar button:hover {
+    /* background-color: #663cfff0; */
+    /* box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4); */
+    color: #002029;
+    transform: translateX(5px);
+  }
+  .searchbar button:focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    outline: 0;
+  }
+
+.searchbar:active {
+  transform: translateY(-1px);
+}
+
+/* CSS */
+.button {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #002029;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  line-height: 29px;
+  padding: 0 10px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 100px;
+}
+
+.button:hover {
+  background-color: #f7fafa;
+}
+
+.button:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
+}

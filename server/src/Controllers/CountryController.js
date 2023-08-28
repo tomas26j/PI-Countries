@@ -49,17 +49,29 @@ const getCountries = async () => {
     }
 }
 
-const getCountriesByName = async (name) => {
+const getCountriesByName = async (query) => {
     try {
-        const byNameCountries = await Country.findAll({
+        console.log("GetCountriesByName EJECUTADO");
+        const countries = await Country.findAll({
             where: {
-                name: {
-                    [Op.iLike] : `%${name}%`
-                }
+                [Op.or]: [
+                    {
+                        name: {
+                            [Op.iLike]: `%${query}%`
+                        }
+                    },
+                    {
+                        id: {
+                            [Op.eq]: query  
+                        }
+                    }
+                ]
             },
             include: [Activity]
-        })
-        return byNameCountries
+        });
+
+        console.log({countries});
+        return countries
     } catch (error) {
         console.log('error getCountriesByName en controller ' + error)
     }

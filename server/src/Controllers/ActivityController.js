@@ -54,6 +54,7 @@ const postActivity = async (name, difficulty, duration, season, countries) => {
                 season: season,
             }
         });
+
         if(created) {
             let relatedCountries = await Country.findAll({
                 where: {
@@ -65,12 +66,12 @@ const postActivity = async (name, difficulty, duration, season, countries) => {
             console.log({relatedCountries})          
             relatedCountries?.forEach(c => c.addActivity(instance));
             return console.log({msg: 'Activity created successfully'})
-        } else {
-            return console.log({msg: "There is an activity by that name already"});
-        }
-    } catch (error) {
-    console.log(error)
-    }
+            
+        } 
+        else return console.log({msg: "There is an activity by that name already"});
+
+    } catch(err){ console.log(err.message) }
+    
 }
 
 

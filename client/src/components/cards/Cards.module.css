@@ -1,0 +1,29 @@
+/*
+.tarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+}
+*/
+.tarjetas { 
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 3rem;
+  padding: 3rem;
+  margin: 0 auto;
+  width: max-content;
+}
+
+/*
+
+*/
+@media screen and (max-width: 1000px) {
+  .tarjetas{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
