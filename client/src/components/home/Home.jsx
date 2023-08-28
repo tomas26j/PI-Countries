@@ -134,20 +134,23 @@ useEffect(() => {
             <Link to= '/countries' >
             </Link>
             <div >
-            <h1 className={styles.title}>Countries App</h1>
+              <h1 className={styles.title}>COUNTRIES APP</h1>
             </div>
             <SearchBar 
             setCurrentPage={setCurrentPage}
+
             />
                 
             <div className={styles.selectdiv}>
+                
                 <select value={alphabetic} className={styles.select} onChange={e => handleSort(e)}>
                 <option value="Desordenado" hidden selected>
                 Order alphabetic
                   </option>
                     <option value='asc'>Ascendent</option>
                     <option value='desc'>Descendent</option>
-                </select >
+                </select>
+
                 <select value={population} className={styles.select} onChange={e => handleSortPopulation(e)}>
                 <option value="Desordenado" hidden selected>
                     Order by population
@@ -155,6 +158,7 @@ useEffect(() => {
                     <option value='asc' >Lower Population to Higher Population </option>
                     <option value='desc'>Higher Population to Lower Population</option>
                 </select>
+
                 <select value={continents} className={styles.select} onChange={(e) => handleFilterContinents(e)}>
                     <option value='All'>All Continents</option>
                     <option value='Antarctic'>Antarctic</option>
@@ -164,12 +168,7 @@ useEffect(() => {
                     <option value='Europe'>Europe</option>
                     <option value='Oceania'>Oceania</option>
                 </select>
-                {/* <select onChange={e => handleFilterUnderPopulation(e)} >
-                    <option value="All">All</option>
-                        <option value='Lessthan'> Less than</option>
-                    
 
-                </select> */}
 
                 <select value={activities} className={styles.select} onChange={e => handleChange(e)}>
                     <option value="All">All Activities</option>

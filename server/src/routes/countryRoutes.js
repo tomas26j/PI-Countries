@@ -12,19 +12,17 @@ router.get('/', async (req, res) =>{
     if(!name){                                                                  
         let countries = await getCountries();                                        
         return res.status(200).send(countries);
-    }else{
+    }
+    else{
         try{
             console.log("BUSCANDO CON NOMBRE ESPECIFICO...") 
             const country = await getCountriesByName(name);                                     
             const nameCountry = country.filter(c => c.name.toLowerCase().startsWith(name.toLowerCase()));       
             nameCountry.length ?
-            res.status(200).send(nameCountry) : res.status(404).send('Country name does not exist!');                                                   
+            res.status(200).send(nameCountry) : res.status(404).send('No existe pais con ese nombre');                                                   
         }
-        catch(error){
-         res.send(error)
-        }; 
+        catch(err){ res.status(400).send("Problem fetching data from database: " + err) }
     };
-    return res.status(400).send("DATA NOT FOUND");
 });
 
 
@@ -38,9 +36,9 @@ router.get('/:id', async  (req, res) =>{
         res.status(200).send(nameCountry) : res.status(404).send('Country name does not exist!');                                                   
     }
     catch(error){
-     res.send(error)
+        return res.status(400).send("DATA NOT FOUND");
     };
-    return res.status(400).send("DATA NOT FOUND");
+    
 })
 
 module.exports = router;
