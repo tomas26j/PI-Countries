@@ -1,7 +1,8 @@
 .container {       
     
     background: linear-gradient(0deg, rgba(83, 89, 154, .8) 0%, rgba(128, 222, 217, .8) 100%);
-    width: 20rem;        
+    width: 17rem;
+    height: 23rem;    
     border-radius: 8px;
     margin: 50px;
     justify-content: center;
@@ -16,9 +17,12 @@
 }
 
 img {
+    -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+    box-shadow: 5px 5px 15px 5px #000000;
+    border: 1px double #000000;
     max-width: 90%;
     height: auto;
-    margin-top: 15px;
+    margin-top: 2rem;
     /* border: solid; */
     /* border-color: rgba(255, 255, 255, 0.929); */
 }

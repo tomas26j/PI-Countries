@@ -11,6 +11,10 @@
     /* padding-left: 30px;
       padding-right: 30px; */
   }
+
+  a button{
+    margin-top: 2rem;
+  }
   
   h1,h2,h3,h4{
     color:#00303d;

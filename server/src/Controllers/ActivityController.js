@@ -11,33 +11,6 @@ const byActivities = async () => {
     }
 };
 
-/*
-const postActivity = async (name, difficulty, duration, season, countries) => {
-    try {
-        let newActivity = await Activity.create({
-            name,
-            difficulty,
-            duration,
-            season
-        });
-
-        console.log({countries});
-        let selectCountries = await Country.findAll({
-            where: {
-                name: countries
-            }
-        })
-
-        console.log({selectCountries});
-        return newActivity.addCountry(selectCountries)
-    
-    } catch (error) {
-        console.log('Error postActivity en controller ' + error)
-    }
-};
-*/
-
-
 const postActivity = async (name, difficulty, duration, season, countries) => {
 
     if (!name || !difficulty || !duration || !season || !countries) 

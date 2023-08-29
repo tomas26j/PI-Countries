@@ -106,125 +106,158 @@ export default function ActivityCreated() {
 
 
 
-    return(
-        <div>
+    return (
+      <div className={styles.mainContainer}>
+        {countries.length > 0 ? (
+          <div>
+            <h1 className={styles.h1}>Create Activity</h1>
+            <form
+              className={styles.container}
+              onSubmit={(e) => handleSubmit(e)}
+            >
+              <div>
+                <label className={styles.activity}>Activity:</label>
+                <input
+                  className={errors.name && styles.danger}
+                  type="text"
+                  value={input.name}
+                  name="name"
+                  onChange={(e) => handleChange(e)}
+                  required
+                />
+                <br />
+                {errors.name && <p className={styles.danger}>{errors.name} </p>}
+              </div>
+              <div className={styles.select}>
+                <label>Difficulty:</label>
+                <select
+                  className={styles.values}
+                  name="difficulty"
+                  value={input.difficulty}
+                  id="difficulty"
+                  onChange={(e) => handleChange(e)}
+                >
+                  <option hidden value=""></option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
 
-            {
-                countries.length > 0 ?
-                <div>
-
-                <h1 className={styles.h1}>Create Activity</h1>
-                <form className={styles.container} onSubmit={(e) => handleSubmit(e)}>
-                <div>
-                    <label className={styles.activity}>Activity:</label>
-                    <input  className={errors.name && styles.danger} type="text" value= {input.name} name="name"
-                    onChange={(e) => handleChange(e)}
-                    required/>
-                    <br/>
-                    {errors.name && (
-                        <p className={styles.danger}>{errors.name} </p>
-                    )}
-                </div>
-                <div className={styles.select}>
-                    <label>Difficulty:</label>
-                    <select className={styles.values} name="difficulty" value={input.difficulty} id="difficulty"  onChange={(e) => handleChange(e)}>
-                    <option  hidden  value=""></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                 
-                    </select>
-                    
-                    {/* {errors.difficulty && (
+                {/* {errors.difficulty && (
                         <div>
                             <br />
                             <p className="error">{errors.difficulty} </p>
                             <br />
                         </div>
                             )} */}
-                        
-                        
-                </div>
-                <div>
-                    <label>Duration:</label>
-                    <input type="text" value= {input.duration} name='duration'
-                    onChange={(e) => handleChange(e)}
-                    max='24'
-                    min='0'
-                    required/>
-                    <br/>
-                    {errors.duration && (
-                        <p className="error">{errors.duration} </p>
-                        )}
-                </div>
-                    <label className={styles.temporada}>Season:</label>
-                <fieldset className={styles.check}>
-                    <br />
-                    <label ></label>
-                    <input type="radio" id='Summer' name='season'  value='Summer' 
-                    onClick={(e) => handleCheck(e)}
-                    // defaultChecked
-                    required/>Summer                  
-                    
-                    <label ></label>
-                    <input type="radio" id='Spring' name='season' value='Spring' 
-                    onClick={(e) => handleCheck(e)}
-                    required/>Spring
-                    
-                    <label ></label>
-                    <input type="radio" id='Autumn' name='season' value='Autumn' 
-                    onClick={(e) => handleCheck(e)}
-                    required/>Autumn
-               
-                    
-                    <label ></label>
-                    <input type="radio" id='Winter' name='season' value='Winter' 
-                    onClick={(e) => handleCheck(e)}
-                    required/>Winter
-                    
-                    
-                 
-                </fieldset>
-                <select onChange ={e=>handleSelect(e)} defaultValue='country'>
-                    <option value ='country' hidden> Select Country</option>
-                {countries.map((a)=>(
-                    <option key={a.name} value={a.name}>{a.name}</option>
-                    ) )}
-                
-                </select>
-                <div>
-                        
-                        {
-                            input.countries.map(e => {
-                                return(
-                                    <div key={e}>
-                                        <h4 >
-                                            {e}
-                                        </h4>
-                                        <input className={styles.x} onClick={() => handleDelete(e)} type="button" value="X" name={e}/>
-                                    </div>
-                                )
-                            })
-                        }
+              </div>
+              <div>
+                <label>Duration:</label>
+                <input
+                  type="text"
+                  value={input.duration}
+                  name="duration"
+                  onChange={(e) => handleChange(e)}
+                  max="24"
+                  min="0"
+                  required
+                />
+                <br />
+                {errors.duration && <p className="error">{errors.duration} </p>}
+              </div>
+              <label className={styles.temporada}>Season:</label>
+              <fieldset className={styles.check}>
+                <br />
+                <label></label>
+                <input
+                  type="radio"
+                  id="Summer"
+                  name="season"
+                  value="Summer"
+                  onClick={(e) => handleCheck(e)}
+                  // defaultChecked
+                  required
+                />
+                Summer
+                <label></label>
+                <input
+                  type="radio"
+                  id="Spring"
+                  name="season"
+                  value="Spring"
+                  onClick={(e) => handleCheck(e)}
+                  required
+                />
+                Spring
+                <label></label>
+                <input
+                  type="radio"
+                  id="Autumn"
+                  name="season"
+                  value="Autumn"
+                  onClick={(e) => handleCheck(e)}
+                  required
+                />
+                Autumn
+                <label></label>
+                <input
+                  type="radio"
+                  id="Winter"
+                  name="season"
+                  value="Winter"
+                  onClick={(e) => handleCheck(e)}
+                  required
+                />
+                Winter
+              </fieldset>
+              <select onChange={(e) => handleSelect(e)} defaultValue="country">
+                <option value="country" hidden>
+                  {" "}
+                  Select Country
+                </option>
+                {countries.map((a) => (
+                  <option key={a.name} value={a.name}>
+                    {a.name}
+                  </option>
+                ))}
+              </select>
+              <div className={styles.Container}>
+                {input.countries.map((e) => {
+                  return (
+                    <div className={styles.selectedCountries} key={e}>
+                      <h4>{e}</h4>
+                      <input
+                        className={styles.x}
+                        onClick={() => handleDelete(e)}
+                        type="button"
+                        value="X"
+                        name={e}
+                      />
                     </div>
-                {/* <div className={styles.delete}>
+                  );
+                })}
+              </div>
+              {/* <div className={styles.delete}>
                 <p  className={styles.country}>{input.countries.map(e => e + ', ')} </p>
                 {input.countries.map(e => 
                 <button onClick={() => handleDelete(e)} className={styles.x}>X</button>                        
                     
                     )}
                 </div> */}
-                <button type='submit'>Create Activity</button>
+              <button type="submit">Create Activity</button>
             </form>
-            <Link to = '/home'> <button>Back</button></Link>
-                    </div>
-            : <div><SpinnerCircular color="white" size="200px"/></div>
-        }
-    
-        </div>
-
-
-        )
+            <Link to="/home">
+              {" "}
+              <button>Back</button>
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <SpinnerCircular color="white" size="200px" />
+          </div>
+        )}
+      </div>
+    );
 }

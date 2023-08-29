@@ -10,21 +10,7 @@ export const POST_ACTIVITY = 'POST_ACTIVITY';
 export const SET_DETAIL_COUNTRY = 'SET_DETAIL_COUNTRY';
 export const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
 export const FILTER_ACTIVITY = 'FILTER_ACTIVITY';
-// export const ORDER_BY_UNDER_POPULATION = 'ORDER_BY_UNDER_POPULATION';
 
-
-// export const getCountries = () => {
-//     return function (dispatch){
-//         return fetch('http://localhost:3001/countries')
-//         .then(res => res.json())
-//         .then(data => {
-//             dispatch({
-//                 type: GET_ALL_COUNTRIES,
-//                 payload: data
-//             })
-//         })
-//     }
-// }
 
 export const getCountries = () => {
     return async function (dispatch) {
@@ -57,13 +43,6 @@ export const orderByContinent = (continents) => {
     }
 }
 
-// export const orderByUnderPopulation = (payload) => {
-//     return{
-//         type: ORDER_BY_UNDER_POPULATION,
-//         payload: payload
-//     }
-// }
-
 export const getNameCountries = (name) => {
     return async function(dispatch) {
         try {
@@ -77,7 +56,6 @@ export const getNameCountries = (name) => {
         }
     }
 }
-
 
 export const getDetail = (id) => {
     return async function (dispatch) {
@@ -98,7 +76,6 @@ export function setDetail() {
         type: SET_DETAIL_COUNTRY,
     }
 }
-
 
 export const getActivities = () => {
     return async function(dispatch) {
